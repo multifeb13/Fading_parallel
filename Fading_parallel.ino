@@ -1,5 +1,13 @@
 int led_pin = 1;
 
+double getRandomValue() {
+  static const int freq_min = 0.1;
+  static const int freq_max = 5.0;
+
+  long val_rnd = random(long(freq_min * 10.0f), long(freq_max * 10.0f));
+  return val_rnd / 10.0f;
+}
+
 double getLEDValue(const double freq, const double time) {
   double val_sin = sin(TWO_PI * (freq / 2.0f) * time);
   double val_abs = abs(val_sin);
@@ -19,7 +27,7 @@ void setup() {
 }
 
 void loop() {
-  double freq = random(1, 50) / 10.0f;
+  double freq = getRandomValue();
 
   for (double time = 0; time < 7; time += 0.01) {
     double value = getLEDValue(freq, time);
